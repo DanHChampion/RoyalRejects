@@ -1,7 +1,7 @@
-# 👑 RoyalRejects
+# 👑 Royal Rejects
 A goofy platform-fighting game where misfit royals battle for the crown with absurd weapons.
 
-Still in development!⚠️
+## Still in development!⚠️
 
 ![Screenshot](/docs/screenshot.png)
 
