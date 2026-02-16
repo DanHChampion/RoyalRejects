@@ -22,6 +22,12 @@ jumping0 = pygame.image.load('images/prince/prince_jump_0.png')
 
 ffalling0 = pygame.image.load('images/prince/prince_ffall_0.png')
 
+jab0 = pygame.image.load('images/prince/prince_jab_0.png')
+jab1 = pygame.image.load('images/prince/prince_jab_1.png')
+jab2 = pygame.image.load('images/prince/prince_jab_2.png')
+
+nair0 = pygame.image.load('images/prince/prince_nair_0.png')
+
 def makePlayer(x,y):
     entity = engine.Entity()
     entity.position = engine.Position(x,y,32,72)
@@ -29,10 +35,14 @@ def makePlayer(x,y):
     entityWalkingAnimation = engine.Animation([walking0, walking1, walking2, walking3, walking4, walking5])
     entityJumpingAnimation = engine.Animation([jumping0])
     entityFastFallingAnimation = engine.Animation([ffalling0])
+    entityJabAnimation = engine.Animation([jab0, jab1, jab2], 15.0)  # Faster animation for attack
+    entityNairAnimation = engine.Animation([nair0], 15.0)  # Single frame for now
     entity.animations.add('idle', entityIdleAnimation)
     entity.animations.add('walking', entityWalkingAnimation)
     entity.animations.add('jumping', entityJumpingAnimation)
     entity.animations.add('fastfalling', entityFastFallingAnimation)
+    entity.animations.add('jab', entityJabAnimation)
+    entity.animations.add('nair', entityNairAnimation)
     entity.type = 'player'
     entity.intention = engine.Intention()
     return entity

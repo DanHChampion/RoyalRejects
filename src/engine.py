@@ -85,6 +85,11 @@ class InputSystem(System):
             entity.intention.dodge = True
         else:
             entity.intention.dodge = False
+        # attack = light attack
+        if input_stream.keyboard.is_key_pressed(entity.input.light):
+            entity.intention.attack = True
+        else:
+            entity.intention.attack = False
 
 class PhysicsSystem(System): 
     def check(self, entity):
@@ -104,14 +109,16 @@ class PhysicsSystem(System):
         air_max_speed = 2 if entity.dashed == False else 8
 
         if entity.intention.move_left or entity.intention.move_right:
+            # Reduce movement during attacks
+            movement_modifier = 0.3 if entity.is_attacking else 1.0
             if entity.on_ground:
                 if abs(entity.x_speed) < ground_max_speed:
-                    entity.x_acceleration = force_applied
+                    entity.x_acceleration = force_applied * movement_modifier
                 else:
                     entity.x_acceleration = 0.0
             else:
                 if abs(entity.x_speed) < air_max_speed:
-                    entity.x_acceleration = force_applied
+                    entity.x_acceleration = force_applied * movement_modifier
                 else:
                     entity.x_acceleration = 0.0
         
@@ -236,6 +243,7 @@ class Intention:
         self.move_down = False
         self.jump = False
         self.dodge = False
+        self.attack = False
 
 class Input:
     def __init__(self, up, down, left, right, jump, light, heavy, dodge):
@@ -267,3 +275,6 @@ class Entity():
         self.character = Character()
         self.double_jump = False
         self.dashed = False
+        self.is_attacking = False
+        self.attack_timer = 0
+        self.attack_cooldown = 0
